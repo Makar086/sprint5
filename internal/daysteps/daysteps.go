@@ -1,4 +1,4 @@
-package daysteps
+﻿package daysteps
 
 type DaySteps struct {
 	// TODO: добавить поля
@@ -6,8 +6,11 @@ type DaySteps struct {
 
 func (ds *DaySteps) Parse(datastring string) (err error) {
 	// TODO: реализовать функцию
+
+
 }
 
 func (ds DaySteps) ActionInfo() (string, error) {
 	// TODO: реализовать функцию
+
 }

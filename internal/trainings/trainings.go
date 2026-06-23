@@ -4,6 +4,8 @@ import(
 	"errors"
 	"strconv"
 	"strings"
+"github.com/Yandex-Practicum/tracker/internal/personaldata"
+"github.com/Yandex-Practicum/tracker/internal/spentenergy"
 		
 )
 type Training struct {
@@ -44,8 +46,8 @@ func (t *Training) Parse(datastring string) (err error) {
 
 func (t Training) ActionInfo() (string, error) {
 	// TODO: реализовать функцию
-	distan:=spentenergy.Distance(t.Steps, t.personaldata.Personal.height)
-	speed:=spentenergy.MeanSpeed(t.Steps, t.personaldata.Personal.height, t.Duration)
+	distan:=spentenergy.Distance(t.Steps, t.personaldata.Personal.Height)
+	speed:=spentenergy.MeanSpeed(t.Steps, t.personaldata.Personal.Height, t.Duration)
 
 
 
@@ -66,7 +68,7 @@ if err != nil {
 			
 			return  "", err
 		}
-str:="Тип тренировки: Бег\nДлительность: "+t.Duration.String()+" ч.\nДистанция: "+strconv.Itoa(distan)+" км.\nСкорость: "+strconv.Itoa(speed)+" км/ч\nСожгли калорий: "+strconv.Itoa(calore)
+str:="Тип тренировки: Бег\nДлительность: "+t.Duration.String()+" ч.\nДистанция: "+strconv.FormatFloat(distan, 'f', 2, 64)+" км.\nСкорость: "+strconv.FormatFloat(speed, 'f', 2, 64)+" км/ч\nСожгли калорий: "+strconv.FormatFloat(calore, 'f', 2, 64)
 return str, nil
 
 	case "Ходьба":
@@ -76,7 +78,7 @@ if err != nil {
 			
 			return  "", err
 		}
-str:="Тип тренировки: Ходьба\nДлительность: "+t.Duration.String()+" ч.\nДистанция: "+strconv.Itoa(distan)+" км.\nСкорость: "+strconv.Itoa(speed)+" км/ч\nСожгли калорий: "+strconv.Itoa(calore)
+str:="Тип тренировки: Ходьба\nДлительность: "+t.Duration.String()+" ч.\nДистанция: "+strconv.FormatFloat(distan, 'f', 2, 64)+" км.\nСкорость: "+strconv.FormatFloat(speed, 'f', 2, 64)+" км/ч\nСожгли калорий: "+strconv.FormatFloat(calore, 'f', 2, 64)
 return str, nil
 //	calore, err:=WalkingSpentCalories(steps, weight, height, time)
 //if err != nil {

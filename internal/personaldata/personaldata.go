@@ -1,5 +1,6 @@
 ﻿package personaldata
-import( "fmt"
+import( 
+"fmt"
 	)
 
 type Personal struct {

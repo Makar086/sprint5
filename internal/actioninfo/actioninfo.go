@@ -29,8 +29,9 @@ er:= dp.Parse(dataset[q])
 	}
  dp.ActionInfo()
 if er !=nil{
-	log.Println("Ошибка парсинга для элемента", er)
+	log.Println("Ошибка вывода строки", er)
 			}
-return 
+ 
 }
+return
 }

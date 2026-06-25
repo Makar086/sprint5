@@ -1,7 +1,7 @@
 ﻿package actioninfo
 import(
 	"log"
-	
+	"fmt"
 	
 //"github.com/Yandex-Practicum/tracker/internal/personaldata"
 //"github.com/Yandex-Practicum/tracker/internal/spentenergy"
@@ -27,10 +27,12 @@ er:= dp.Parse(dataset[q])
 	log.Println("Ошибка парсинга для элемента", er)
 			continue
 	}
- dp.ActionInfo()
+str, er:= dp.ActionInfo()
 if er !=nil{
 	log.Println("Ошибка вывода строки", er)
+	continue
 			}
+fmt.Println(str)
  
 }
 return

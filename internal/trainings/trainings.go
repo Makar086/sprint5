@@ -1,5 +1,6 @@
 ﻿package trainings
 import(
+//	"fmt"
 	"time"
 	"errors"
 	"strconv"
@@ -10,10 +11,11 @@ import(
 )
 type Training struct {
 	// TODO: добавить поля
+	personaldata.Personal
 	Steps int
 	TrainingType string
 	Duration time.Duration
-	personaldata.Personal
+	
 	
 }
 
@@ -30,7 +32,7 @@ func (t *Training) Parse(datastring string) (err error) {
 		}
 	t.Steps=step
 	t.TrainingType=slice[1]
-	time, err := time.ParseDuration(slice[1])
+	time, err := time.ParseDuration(slice[2])
 		if err != nil {
 			
 			return err
@@ -38,6 +40,7 @@ func (t *Training) Parse(datastring string) (err error) {
 	if time<=0{
 		return errors.New("ошибка 0 время")
 		}
+
 	t.Duration =time
 	return nil
 	}
@@ -46,56 +49,36 @@ func (t *Training) Parse(datastring string) (err error) {
 
 func (t Training) ActionInfo() (string, error) {
 	// TODO: реализовать функцию
-	distan:=spentenergy.Distance(t.Steps, t.personaldata.Personal.Height)
-	speed:=spentenergy.MeanSpeed(t.Steps, t.personaldata.Personal.Height, t.Duration)
+	hei:=t.Personal.Height
+	distan:=spentenergy.Distance(t.Steps, hei)
+	speed:=spentenergy.MeanSpeed(t.Steps, t.Personal.Height, t.Duration)
 
 
 
 
-//f weight<=0||height <=0{
-//	return "", errors.New("Ошибка")
-//	}
-//	steps, vid, time, err:=parseTraining(data)
-//if err != nil {
-			
-//			return  "", err
-//		}
 	switch t.TrainingType{
 	case "Бег":
-	calore, err:=spentenergy.RunningSpentCalories(t.Steps, t.personaldata.Personal.Weight, t.personaldata.Personal.Height, t.Duration)
+	calore, err:=spentenergy.RunningSpentCalories(t.Steps, t.Personal.Weight, t.Personal.Height, t.Duration)
 if err != nil {
 			
 			
 			return  "", err
 		}
-str:="Тип тренировки: Бег\nДлительность: "+t.Duration.String()+" ч.\nДистанция: "+strconv.FormatFloat(distan, 'f', 2, 64)+" км.\nСкорость: "+strconv.FormatFloat(speed, 'f', 2, 64)+" км/ч\nСожгли калорий: "+strconv.FormatFloat(calore, 'f', 2, 64)
+ti:=t.Duration.Hours()
+str:="Тип тренировки: Бег\nДлительность: "+strconv.FormatFloat(ti, 'f', 2, 64)+" ч.\nДистанция: "+strconv.FormatFloat(distan, 'f', 2, 64)+" км.\nСкорость: "+strconv.FormatFloat(speed, 'f', 2, 64)+" км/ч\nСожгли калорий: "+strconv.FormatFloat(calore, 'f', 2, 64)+"\n"
 return str, nil
 
 	case "Ходьба":
-	calore, err:=spentenergy.RunningSpentCalories(t.Steps, t.personaldata.Personal.Weight, t.personaldata.Personal.Height, t.Duration)
+	calore, err:=spentenergy.WalkingSpentCalories(t.Steps, t.Personal.Weight, t.Personal.Height, t.Duration)
 if err != nil {
 			
 			
 			return  "", err
 		}
-str:="Тип тренировки: Ходьба\nДлительность: "+t.Duration.String()+" ч.\nДистанция: "+strconv.FormatFloat(distan, 'f', 2, 64)+" км.\nСкорость: "+strconv.FormatFloat(speed, 'f', 2, 64)+" км/ч\nСожгли калорий: "+strconv.FormatFloat(calore, 'f', 2, 64)
+ti:=t.Duration.Hours()
+str:="Тип тренировки: Ходьба\nДлительность: "+strconv.FormatFloat(ti, 'f', 2, 64)+" ч.\nДистанция: "+strconv.FormatFloat(distan, 'f', 2, 64)+" км.\nСкорость: "+strconv.FormatFloat(speed, 'f', 2, 64)+" км/ч\nСожгли калорий: "+strconv.FormatFloat(calore, 'f', 2, 64)+"\n"
 return str, nil
-//	calore, err:=WalkingSpentCalories(steps, weight, height, time)
-//if err != nil {
-//			
-//			return  "", err
-//		}
-//	distan:=distance(steps, height)
-//	speed:=meanSpeed(steps, height, time)
-	
-//	minutes := time.Minutes()
-//	time3:=minutes/minInH
-//	time1:=strconv.FormatFloat(time3, 'f', 2, 64)
-//	distan1:=strconv.FormatFloat(distan, 'f', 2, 64)
-//	speed1:=strconv.FormatFloat(speed, 'f', 2, 64)
-//	calore1:=strconv.FormatFloat(calore, 'f', 2, 64)
-//str:= "Тип тренировки: Ходьба\nДлительность: "+time1+" ч.\nДистанция: "+distan1+" км.\nСкорость: "+speed1+" км/ч\nСожгли калорий: "+calore1+"\n"
-//return str, err
+
 	default:
 return "", errors.New("неизвестный тип тренировки")
 	}

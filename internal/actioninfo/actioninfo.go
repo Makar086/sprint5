@@ -5,7 +5,7 @@ import(
 	
 //"github.com/Yandex-Practicum/tracker/internal/personaldata"
 //"github.com/Yandex-Practicum/tracker/internal/spentenergy"
-"github.com/Yandex-Practicum/tracker/internal/daysteps"
+//"github.com/Yandex-Practicum/tracker/internal/daysteps"
 //"github.com/Yandex-Practicum/tracker/internal/trainings"
 		
 )
@@ -13,23 +13,24 @@ import(
 type DataParser interface {
 	// TODO: добавить методы
 
-	Parse()  daysteps.Parse()
+	Parse(string) (error)  
 	
-	ActionInfo() daysteps.ActionInfo
+	ActionInfo() (string, error)
+
 }
 
 func Info(dataset []string, dp DataParser) {
 	// TODO: реализовать функцию
-for _, v := range dataset{
-er:= dp.Parse(v)
-	if er!=nil{
-	log.Printf("Ошибка парсинга для элемента", er)
+for q := range dataset{
+er:= dp.Parse(dataset[q])
+	if er !=nil{
+	log.Println("Ошибка парсинга для элемента", er)
 			continue
 	}
-str, er:= dp.ActionInfo()
-if er!=nil{
-	log.Printf("Ошибка парсинга для элемента", er)
+ dp.ActionInfo()
+if er !=nil{
+	log.Println("Ошибка парсинга для элемента", er)
 			}
-return str
+return 
 }
 }
